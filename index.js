@@ -1,3 +1,18 @@
+function createEmployeeRecord(employeeData) {
+  // Destructure the array elements into variables
+  const [firstName, familyName, title, payPerHour] = employeeData;
+
+  // Return the employee record object
+  return {
+    firstName,
+    familyName,
+    title,
+    payPerHour,
+    timeInEvents: [],
+    timeOutEvents: []
+  };
+}
+
 function hoursWorkedOnDate(date) {
   const timeInEvent = this.timeInEvents.find(event => event.date === date);
   const timeOutEvent = this.timeOutEvents.find(event => event.date === date);
