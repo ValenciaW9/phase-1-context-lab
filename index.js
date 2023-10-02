@@ -1,3 +1,14 @@
+function createTimeInEvent(employeeRecord, dateStamp) {
+  const [date, hour] = dateStamp.split(" ");
+  employeeRecord.timeInEvents.push({
+    type: "TimeIn",
+    hour: parseInt(hour, 10),
+    date: date,
+  });
+  return employeeRecord;
+}
+
+
 // Create a function to create an employee record
 function createEmployeeRecord(employeeData) {
   return {
