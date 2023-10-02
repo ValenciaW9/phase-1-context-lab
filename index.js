@@ -8,8 +8,24 @@
  As a result, the lessons for this function will pass *and* it will be available
  for you to use if you need it!
  */
+ function createEmployeeRecords(employeeData) {
+  return employeeData.map(employee => createEmployeeRecord(employee));
+}
 
-function createEmployeeRecord(employeeInfo) {
+// Rest of the functions...
+
+module.exports = {
+  createEmployeeRecord,
+  createEmployeeRecords,
+  createTimeInEvent,
+  createTimeOutEvent,
+  hoursWorkedOnDate,
+  wagesEarnedOnDate,
+  allWagesFor,
+  calculatePayroll,
+};
+
+ function createEmployeeRecord(employeeInfo) {
   return {
     firstName: employeeInfo[0],
     familyName: employeeInfo[1],
@@ -18,10 +34,6 @@ function createEmployeeRecord(employeeInfo) {
     timeInEvents: [],
     timeOutEvents: []
   };
-}
-
-function createEmployeeRecords(employeesInfo) {
-  return employeesInfo.map(employeeInfo => createEmployeeRecord(employeeInfo));
 }
 
 function createTimeInEvent(dateStamp) {
@@ -72,14 +84,3 @@ function calculatePayroll(employees) {
     0
   );
 }
-
-module.exports = {
-  createEmployeeRecord,
-  createEmployeeRecords,
-  createTimeInEvent,
-  createTimeOutEvent,
-  hoursWorkedOnDate,
-  wagesEarnedOnDate,
-  allWagesFor,
-  calculatePayroll
-};
