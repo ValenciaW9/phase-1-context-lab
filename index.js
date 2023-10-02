@@ -1,5 +1,3 @@
-Certainly! Here's an updated version of the code for the functions mentioned:
-
 // Create a function to create an employee record
 function createEmployeeRecord(employeeData) {
   return {
@@ -19,6 +17,10 @@ function createEmployeeRecords(arraysOfEmployeeData) {
 
 // Create a function to add a time-in event to an employee's record
 function createTimeInEvent(employeeRecord, dateStamp) {
+  if (!dateStamp) {
+    throw new Error('Invalid dateStamp');
+  }
+
   const [date, hour] = dateStamp.split(" ");
   employeeRecord.timeInEvents.push({
     type: "TimeIn",
@@ -30,6 +32,10 @@ function createTimeInEvent(employeeRecord, dateStamp) {
 
 // Create a function to add a time-out event to an employee's record
 function createTimeOutEvent(employeeRecord, dateStamp) {
+  if (!dateStamp) {
+    throw new Error('Invalid dateStamp');
+  }
+
   const [date, hour] = dateStamp.split(" ");
   employeeRecord.timeOutEvents.push({
     type: "TimeOut",
