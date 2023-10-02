@@ -22,11 +22,7 @@ function createTimeInEvent(employeeRecord, dateStamp) {
   }
 
   const [date, hour] = dateStamp.split(" ");
-  employeeRecord.timeInEvents.push({
-    type: "TimeIn",
-    hour: parseInt(hour, 10),
-    date: date
-  });
+  employeeRecord.timeInEvents.push({ type: "TimeIn", hour: parseInt(hour, 10), date: date });
   return employeeRecord;
 }
 
@@ -37,10 +33,6 @@ function createTimeOutEvent(employeeRecord, dateStamp) {
   }
 
   const [date, hour] = dateStamp.split(" ");
-  employeeRecord.timeOutEvents.push({
-    type: "TimeOut",
-    hour: parseInt(hour, 10),
-    date: date
-  });
+  employeeRecord.timeOutEvents.push({ type: "TimeOut", hour: parseInt(hour, 10), date: date });
   return employeeRecord;
 }
