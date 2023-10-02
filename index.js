@@ -14,12 +14,15 @@ function createEmployeeRecord(employeeData) {
 function createEmployeeRecords(arraysOfEmployeeData) {
   return arraysOfEmployeeData.map(createEmployeeRecord);
 }
-
-// Create a function to add a time-in event to an employee's record
 function createTimeInEvent(employeeRecord, dateStamp) {
-  if (!dateStamp) {
+  if (typeof dateStamp !== 'string' || dateStamp.length !== 16) {
     throw new Error('Invalid dateStamp');
   }
+
+  const [date, hour] = dateStamp.split(" ");
+  employeeRecord.timeInEvents.push({ type: "TimeIn", hour: parseInt(hour, 10), date: date });
+  return employeeRecord;
+}
 
   const [date, hour] = dateStamp.split(" ");
   employeeRecord.timeInEvents.push({
@@ -28,20 +31,13 @@ function createTimeInEvent(employeeRecord, dateStamp) {
     date: date
   });
   return employeeRecord;
-}
-
-// Create a function to add a time-out event to an employee's record
-function createTimeOutEvent(employeeRecord, dateStamp) {
-  if (!dateStamp) {
+}function createTimeOutEvent(employeeRecord, dateStamp) {
+  if (typeof dateStamp !== 'string' || dateStamp.length !== 16) {
     throw new Error('Invalid dateStamp');
   }
 
   const [date, hour] = dateStamp.split(" ");
-  employeeRecord.timeOutEvents.push({
-    type: "TimeOut",
-    hour: parseInt(hour, 10),
-    date: date
-  });
+  employeeRecord.timeOutEvents.push({ type: "TimeOut", hour: parseInt(hour, 10), date: date });
   return employeeRecord;
 }
 
