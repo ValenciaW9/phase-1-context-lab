@@ -52,23 +52,19 @@ function wagesEarnedOnDate(employeeRecord, date) {
   return wagesEarned;
 }
 
-function allWagesFor() {
-  const eligibleDates = this.timeInEvents.map(e => e.date);
+function allWagesFor(employeeRecord) {
+  const eligibleDates = employeeRecord.timeInEvents.map(e => e.date);
 
   const payable = eligibleDates.reduce(function(memo, d) {
-    return memo + wagesEarnedOnDate(this, d);
-  }.bind(this), 0);
+    return memo + wagesEarnedOnDate(employeeRecord, d);
+  }, 0);
 
   return payable;
 }
 
-function findEmployeeByFirstName(srcArray, firstName) {
-  return srcArray.find(employee => employee.firstName === firstName);
-}
-
 function calculatePayroll(employeeRecords) {
   const totalPayroll = employeeRecords.reduce(
-    (total, employeeRecord) => total + allWagesFor.call(employeeRecord),
+    (total, employeeRecord) => total + allWagesFor(employeeRecord),
     0
   );
   return totalPayroll;
