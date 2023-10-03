@@ -1,38 +1,75 @@
-// Create a function to create an employee record
 function createEmployeeRecord(employeeData) {
+  const [firstName, familyName, title, payPerHour] = employeeData;
   return {
-    firstName: employeeData[0],
-    familyName: employeeData[1],
-    title: employeeData[2],
-    payPerHour: employeeData[3],
+    firstName: firstName,
+    familyName: familyName,
+    title: title,
+    payPerHour: payPerHour,
     timeInEvents: [],
     timeOutEvents: []
   };
 }
 
-// Create a function to create employee records from an array of arrays
-function createEmployeeRecords(arraysOfEmployeeData) {
-  return arraysOfEmployeeData.map(createEmployeeRecord);
+function createEmployeeRecords(employeesData) {
+  return employeesData.map(createEmployeeRecord);
 }
 
-// Create a function to add a time-in event to an employee's record
-function createTimeInEvent(employeeRecord, dateStamp) {
-  if (typeof dateStamp !== 'string' || dateStamp.length !== 16) {
-    throw new Error('Invalid dateStamp');
-  }
-
-  const [date, hour] = dateStamp.split(" ");
-  employeeRecord.timeInEvents.push({ type: "TimeIn", hour: parseInt(hour, 10), date: date });
+function createTimeInEvent(employeeRecord, timeStamp) {
+  const [date, hour] = timeStamp.split(" ");
+  employeeRecord.timeInEvents.push({
+    type: "TimeIn",
+    hour: parseInt(hour, 10),
+    date: date
+  });
   return employeeRecord;
 }
 
-// Create a function to add a time-out event to an employee's record
-function createTimeOutEvent(employeeRecord, dateStamp) {
-  if (typeof dateStamp !== 'string' || dateStamp.length !== 16) {
-    throw new Error('Invalid dateStamp');
-  }
-
-  const [date, hour] = dateStamp.split(" ");
-  employeeRecord.timeOutEvents.push({ type: "TimeOut", hour: parseInt(hour, 10), date: date });
+function createTimeOutEvent(employeeRecord, timeStamp) {
+  const [date, hour] = timeStamp.split(" ");
+  employeeRecord.timeOutEvents.push({
+    type: "TimeOut",
+    hour: parseInt(hour, 10),
+    date: date
+  });
   return employeeRecord;
+}
+
+function hoursWorkedOnDate(employeeRecord, date) {
+  const timeInEvent = employeeRecord.timeInEvents.find(
+    event => event.date === date
+  );
+  const timeOutEvent = employeeRecord.timeOutEvents.find(
+    event => event.date === date
+  );
+  const hoursWorked = (timeOutEvent.hour - timeInEvent.hour) / 100;
+  return hoursWorked;
+}
+
+function wagesEarnedOnDate(employeeRecord, date) {
+  const hoursWorked = hoursWorkedOnDate(employeeRecord, date);
+  const payRate = employeeRecord.payPerHour;
+  const wagesEarned = hoursWorked * payRate;
+  return wagesEarned;
+}
+
+function allWagesFor() {
+  const eligibleDates = this.timeInEvents.map(e => e.date);
+
+  const payable = eligibleDates.reduce(function(memo, d) {
+    return memo + wagesEarnedOnDate(this, d);
+  }.bind(this), 0);
+
+  return payable;
+}
+
+function findEmployeeByFirstName(srcArray, firstName) {
+  return srcArray.find(employee => employee.firstName === firstName);
+}
+
+function calculatePayroll(employeeRecords) {
+  const totalPayroll = employeeRecords.reduce(
+    (total, employeeRecord) => total + allWagesFor.call(employeeRecord),
+    0
+  );
+  return totalPayroll;
 }
